@@ -52,9 +52,9 @@ public class HelloWorldClient {
   }
 
   /** Say hello to server. */
-  public void greet(String name) {
-    logger.info("Will try to greet " + name + " ...");
-    HelloRequest request = HelloRequest.newBuilder().setName(name).build();
+  public void greet(String name, String lastName) {
+    logger.info("Will try to greet " + name + " " + lastName +" ...");
+    HelloRequest request = HelloRequest.newBuilder().setName(name).setLastName(lastName).build();
     HelloReply response;
     try {
       response = blockingStub.sayHello(request);
@@ -73,11 +73,12 @@ public class HelloWorldClient {
     HelloWorldClient client = new HelloWorldClient("localhost", 50051);
     try {
       /* Access a service running on the local machine on port 50051 */
-      String user = "Yi";
+      String firstName = "Yi";
+      String lastName = "Chang";
       if (args.length > 0) {
-        user = args[0]; /* Use the arg as the name to greet if provided */
+        firstName = args[0]; /* Use the arg as the name to greet if provided */
       }
-      client.greet(user);
+      client.greet(firstName, lastName);
     } finally {
       client.shutdown();
     }
