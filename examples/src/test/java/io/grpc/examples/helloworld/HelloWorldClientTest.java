@@ -100,5 +100,6 @@ public class HelloWorldClientTest {
     verify(serviceImpl)
         .sayHello(requestCaptor.capture(), ArgumentMatchers.<StreamObserver<HelloReply>>any());
     assertEquals("Yi", requestCaptor.getValue().getName());
+    assertEquals("Chang", requestCaptor.getValue().getLastName());
   }
 }
