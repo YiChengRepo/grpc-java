@@ -250,6 +250,10 @@ public class RouteGuideClient {
 
   /** Issues several different requests and then exits. */
   public static void main(String[] args) throws InterruptedException {
+    logger.log(Level.INFO, "client waiting ");
+    Thread.sleep(10000);
+    logger.log(Level.INFO, "client waiting done");
+
     List<Feature> features;
     try {
       features = RouteGuideUtil.parseFeatures(RouteGuideUtil.getDefaultFeaturesFile());
@@ -303,6 +307,7 @@ public class RouteGuideClient {
   void setRandom(Random random) {
     this.random = random;
   }
+
 
   /**
    * Only used for helping unit test.
