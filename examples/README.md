@@ -204,7 +204,7 @@ A wide variety of third-party examples can be found [here](https://github.com/sa
 
 ## Debug
 ![Setup IntelliJ for remote debugging](https://github.com/YiChengRepo/grpc-java/blob/master/examples/images/set%20HL%20server%20remote%20debug%20IntelliJ.png)
-![Server is run with bash with env](/images/Server%20is%20run%20with%20bash%20with%20env%20HELLO_WORLD_CLIENT_OPTS.png)
+![Server is run with bash with env](images/set%20HL%20server%20remote%20debug%20IntelliJ.png)
 ![Run HL server with jdwp](/images/Run%20HL%20server%20with%20jdwp%20-%20Java%20Debug%20Wire%20Protocol%20.png)
 
 
