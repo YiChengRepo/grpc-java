@@ -95,10 +95,10 @@ public class HelloWorldClientTest {
   public void greet_messageDeliveredToServer() {
     ArgumentCaptor<HelloRequest> requestCaptor = ArgumentCaptor.forClass(HelloRequest.class);
 
-    client.greet("test name");
+    client.greet("Yi", "Chang");
 
     verify(serviceImpl)
         .sayHello(requestCaptor.capture(), ArgumentMatchers.<StreamObserver<HelloReply>>any());
-    assertEquals("test name", requestCaptor.getValue().getName());
+    assertEquals("Yi", requestCaptor.getValue().getName());
   }
 }

@@ -67,8 +67,8 @@ public class HelloWorldServerTest {
 
 
     HelloReply reply =
-        blockingStub.sayHello(HelloRequest.newBuilder().setName( "test name").build());
+        blockingStub.sayHello(HelloRequest.newBuilder().setName( "Yi").setLastName("Chang").build());
 
-    assertEquals("Hello test name", reply.getMessage());
+    assertEquals("Hello Yi Chang", reply.getMessage());
   }
 }
