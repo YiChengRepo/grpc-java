@@ -65,6 +65,20 @@ public class HelloWorldClient {
     logger.info("Greeting: " + response.getMessage());
   }
 
+  /** Say bye to server. */
+  public void bye(String name, String lastName) {
+    logger.info("Will try to say bye to " + name + " " + lastName +" ...");
+    HelloRequest request = HelloRequest.newBuilder().setName(name).setLastName(lastName).build();
+    HelloReply response;
+    try {
+      response = blockingStub.sayBye(request);
+    } catch (StatusRuntimeException e) {
+      logger.log(Level.WARNING, "RPC failed: {0}", e.getStatus());
+      return;
+    }
+    logger.info("Saying bye: " + response.getMessage());
+  }
+
   /**
    * Greet server. If provided, the first element of {@code args} is the name to use in the
    * greeting.
@@ -79,6 +93,7 @@ public class HelloWorldClient {
         firstName = args[0]; /* Use the arg as the name to greet if provided */
       }
       client.greet(firstName, lastName);
+      client.bye(firstName, lastName);
     } finally {
       client.shutdown();
     }
