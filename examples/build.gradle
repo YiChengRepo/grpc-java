@@ -112,6 +112,8 @@ task compressingHelloWorldClient(type: CreateStartScripts) {
     classpath = startScripts.classpath
 }
 
+
+
 applicationDistribution.into('bin') {
     from(routeGuideServer)
     from(routeGuideClient)
