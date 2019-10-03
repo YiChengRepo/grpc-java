@@ -207,5 +207,9 @@ A wide variety of third-party examples can be found [here](https://github.com/sa
 ![Server is run with bash with env](images/Server%20is%20run%20with%20bash%20with%20env%20HELLO_WORLD_CLIENT_OPTS.png)
 ![Run HL server with jdwp](images/Run%20HL%20server%20with%20jdwp%20-%20Java%20Debug%20Wire%20Protocol%20.png)
 
+## Stream Test via ListFeatures call
+![Server streaming to client](images/server%20stream%20data%20to%20client%20via%20grpc%20listFeature%20call.png)
+![Client receiving stream from server ](images/client%20receiving%20streaming%20data%20via%20grpc%20listFeature%20call.png)
+
 
 

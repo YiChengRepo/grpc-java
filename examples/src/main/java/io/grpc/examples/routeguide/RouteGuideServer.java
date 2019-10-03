@@ -139,6 +139,8 @@ public class RouteGuideServer {
      */
     @Override
     public void listFeatures(Rectangle request, StreamObserver<Feature> responseObserver) {
+      logger.info("server: list feature start -------");
+
       int left = min(request.getLo().getLongitude(), request.getHi().getLongitude());
       int right = max(request.getLo().getLongitude(), request.getHi().getLongitude());
       int top = max(request.getLo().getLatitude(), request.getHi().getLatitude());
@@ -152,7 +154,13 @@ public class RouteGuideServer {
         int lat = feature.getLocation().getLatitude();
         int lon = feature.getLocation().getLongitude();
         if (lon >= left && lon <= right && lat >= bottom && lat <= top) {
+          logger.info("server: sending data ");
           responseObserver.onNext(feature);
+          try {
+            Thread.sleep(1000);
+          } catch (InterruptedException e) {
+            logger.info("server : failed to sleep");
+          }
         }
       }
       responseObserver.onCompleted();
@@ -211,6 +219,13 @@ public class RouteGuideServer {
      * @param responseObserver an observer to receive the stream of previous messages.
      * @return an observer to handle requested message/location pairs.
      */
+    /*
+    For bidirectional stream:
+    1>server use responseObserver to stream data back to client, for example responseObserver.onNext.
+    2>server returns a StreamObserver<RouteNote>, which is then used by client
+    to send information to server
+    */
+
     @Override
     public StreamObserver<RouteNote> routeChat(final StreamObserver<RouteNote> responseObserver) {
       return new StreamObserver<RouteNote>() {
@@ -290,4 +305,6 @@ public class RouteGuideServer {
       return (int) (r * c);
     }
   }
+
+
 }

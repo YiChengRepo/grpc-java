@@ -101,7 +101,7 @@ public class RouteGuideClient {
    * response feature as it arrives.
    */
   public void listFeatures(int lowLat, int lowLon, int hiLat, int hiLon) {
-    info("*** ListFeatures: lowLat={0} lowLon={1} hiLat={2} hiLon={3}", lowLat, lowLon, hiLat,
+    info("client: start *** ListFeatures: lowLat={0} lowLon={1} hiLat={2} hiLon={3}", lowLat, lowLon, hiLat,
         hiLon);
 
     Rectangle request =
@@ -110,10 +110,14 @@ public class RouteGuideClient {
             .setHi(Point.newBuilder().setLatitude(hiLat).setLongitude(hiLon).build()).build();
     Iterator<Feature> features;
     try {
+      info("client: before calling listFeature with req");
+      //note the call below listFeatures will NOT block -  Results are streamed rather than returned at once
       features = blockingStub.listFeatures(request);
+      info("client: after calling listFeature");
+
       for (int i = 1; features.hasNext(); i++) {
         Feature feature = features.next();
-        info("Result #" + i + ": {0}", feature);
+        info("client: Result #" + i + ": {0}", feature);
         if (testHelper != null) {
           testHelper.onMessage(feature);
         }
@@ -124,6 +128,7 @@ public class RouteGuideClient {
         testHelper.onRpcError(e);
       }
     }
+    info("------finished--------");
   }
 
   /**
@@ -196,6 +201,15 @@ public class RouteGuideClient {
    * Bi-directional example, which can only be asynchronous. Send some chat messages, and print any
    * chat messages that are sent from the server.
    */
+    /*
+    For bidirectional stream:
+    1>client send over new StreamObserver<RouteNote> so server can use it to stream response data back.
+    e.g.  asyncStub.routeChat(new StreamObserver<RouteNote>()
+    2>client use the server returned StreamObserver<RouteNote> requestObserver to stream data over.
+    e.g.  StreamObserver<RouteNote> requestObserver = asyncStub.routeChat()
+    requestObserver.onNext()
+    */
+
   public CountDownLatch routeChat() {
     info("*** RouteChat");
     final CountDownLatch finishLatch = new CountDownLatch(1);
@@ -268,20 +282,20 @@ public class RouteGuideClient {
       client.getFeature(409146138, -746188906);
 
       // Feature missing.
-      client.getFeature(0, 0);
+//      client.getFeature(0, 0);
 
       // Looking for features between 40, -75 and 42, -73.
       client.listFeatures(400000000, -750000000, 420000000, -730000000);
 
-      // Record a few randomly selected points from the features file.
-      client.recordRoute(features, 10);
-
-      // Send and receive some notes.
-      CountDownLatch finishLatch = client.routeChat();
-
-      if (!finishLatch.await(1, TimeUnit.MINUTES)) {
-        client.warning("routeChat can not finish within 1 minutes");
-      }
+//      // Record a few randomly selected points from the features file.
+//      client.recordRoute(features, 10);
+//
+//      // Send and receive some notes.
+//      CountDownLatch finishLatch = client.routeChat();
+//
+//      if (!finishLatch.await(1, TimeUnit.MINUTES)) {
+//        client.warning("routeChat can not finish within 1 minutes");
+//      }
     } finally {
       client.shutdown();
     }
