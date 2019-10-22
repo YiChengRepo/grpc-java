@@ -205,6 +205,15 @@ A wide variety of third-party examples can be found [here](https://github.com/sa
 ## Debug
 ![Setup IntelliJ for remote debugging](images/set%20HL%20server%20remote%20debug%20IntelliJ.png)
 ![Server is run with bash with env](images/Server%20is%20run%20with%20bash%20with%20env%20HELLO_WORLD_CLIENT_OPTS.png)
+In bash you can setup:
+
+```
+HELLO_WORLD_SERVER_OPTS=-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=*:5005
+HELLO_WORLD_CLIENT_OPTS=-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=*:5006
+export HELLO_WORLD_SERVER_OPTS  
+export HELLO_WORLD_CLIENT_OPTS  
+```
+
 ![Run HL server with jdwp](images/Run%20HL%20server%20with%20jdwp%20-%20Java%20Debug%20Wire%20Protocol%20.png)
 
 ## Stream Test via ListFeatures call
