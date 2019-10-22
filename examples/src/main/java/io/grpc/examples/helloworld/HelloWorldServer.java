@@ -18,6 +18,7 @@ package io.grpc.examples.helloworld;
 
 import io.grpc.Server;
 import io.grpc.ServerBuilder;
+import io.grpc.protobuf.services.ProtoReflectionService;
 import io.grpc.stub.StreamObserver;
 import java.io.IOException;
 import java.util.logging.Logger;
@@ -35,6 +36,7 @@ public class HelloWorldServer {
     int port = 50051;
     server = ServerBuilder.forPort(port)
         .addService(new GreeterImpl())
+        .addService(ProtoReflectionService.newInstance())
         .build()
         .start();
     logger.info("Server started, listening on " + port);
@@ -77,6 +79,7 @@ public class HelloWorldServer {
 
     @Override
     public void sayHello(HelloRequest req, StreamObserver<HelloReply> responseObserver) {
+      logger.info("received hello request from " + req.getName() + " " + req.getLastName());
       HelloReply reply = HelloReply.newBuilder().setMessage("Hello " + req.getName() + " " + req.getLastName()).build();
       responseObserver.onNext(reply);
       responseObserver.onCompleted();
@@ -84,6 +87,7 @@ public class HelloWorldServer {
 
     @Override
     public void sayBye(HelloRequest req, StreamObserver<HelloReply> responseObserver) {
+      logger.info("received bye bye request from " + req.getName() + " " + req.getLastName());
       HelloReply reply = HelloReply.newBuilder().setMessage("Bye " + req.getName() + " " + req.getLastName()).build();
       responseObserver.onNext(reply);
       responseObserver.onCompleted();

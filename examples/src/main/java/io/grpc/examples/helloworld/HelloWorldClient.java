@@ -84,9 +84,9 @@ public class HelloWorldClient {
    * greeting.
    */
   public static void main(String[] args) throws Exception {
-    logger.info("client start and pause");
-    Thread.sleep(1000*10);
-    logger.info("client pause finished");
+//    logger.info("client start and pause");
+////    Thread.sleep(1000*10);
+//    logger.info("client pause finished");
 
     HelloWorldClient client = new HelloWorldClient("localhost", 50051);
     try {

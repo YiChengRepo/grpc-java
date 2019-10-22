@@ -26,9 +26,11 @@ def grpcVersion = '1.24.0' // CURRENT_GRPC_VERSION
 def protobufVersion = '3.9.0'
 def protocVersion = protobufVersion
 
+
 dependencies {
     implementation "io.grpc:grpc-protobuf:${grpcVersion}"
     implementation "io.grpc:grpc-stub:${grpcVersion}"
+    implementation "io.grpc:grpc-services:${grpcVersion}"
     compileOnly "javax.annotation:javax.annotation-api:1.2"
 
     // examples/advanced need this for JsonFormat
